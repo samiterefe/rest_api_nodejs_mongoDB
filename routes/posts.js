@@ -4,8 +4,14 @@ const express = require('express');
 const Post = require('../models/Post')
 const router = express.Router();
 
-router.get('/', (req, res)=>{
-   res.send('We are on posts from routes')
+router.get('/', async (req, res)=>{
+    
+    try{
+        const posts = await Post.find()
+        res.json(posts)
+    }catch(err){
+        res.json({message: err})
+    }
 });
 
 
@@ -22,8 +28,8 @@ router.post('/', async (req, res)=>{
      try{
         const savedPost = await  post.save()
         res.json(savedPost);
-     }catch{
-        res.json({ message: err})
+     }catch(err){
+        res.json({ message: err});
      }
 
 
@@ -59,9 +65,53 @@ router.post('/', async (req, res)=>{
         
 })
 
-router.get('/specific', (req, res)=>{
-    res.send('form specific post')
+router.get('/:postId', async(req, res)=>{
+    
+   
+    
+    
+    
+    
+    
+    try{
+        const post = await Post.findById(req.params.postId );
+        res.json(post);
+
+    }catch(err){
+        res.json({message: err})
+    }
+    
+
  });
+
+ router.delete('/:postId', async(req,res) =>{
+    try{
+       const deletedPost = await Post.findOneAndDelete({_id: req.params.postId})
+       res.json(deletedPost)
+       
+     
+    }catch(err){
+       res.json({message: err})
+
+    }
+
+ });
+
+ router.patch('/:postId', async(req, res)=>{
+       
+    try{
+
+        
+        const updatedPost = await  Post.updateOne({_id: req.params.postId}, {title: req.body.title});
+        res.json(updatedPost)
+    }
+    catch(err){
+       res.json({message: err})
+    }
+    
+
+
+ })
 
 
 module.exports = router;
