@@ -32,21 +32,6 @@ router.post('/', async (req, res)=>{
         res.json({ message: err});
      }
 
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
     //res.json(req.body)
     //console.log(req.body)
     // const post = new Post ({
@@ -65,13 +50,7 @@ router.post('/', async (req, res)=>{
         
 })
 
-router.get('/:postId', async(req, res)=>{
-    
-   
-    
-    
-    
-    
+router.get('/:postId', async(req, res)=>{   
     
     try{
         const post = await Post.findById(req.params.postId );
@@ -108,8 +87,6 @@ router.get('/:postId', async(req, res)=>{
     catch(err){
        res.json({message: err})
     }
-    
-
 
  })
 

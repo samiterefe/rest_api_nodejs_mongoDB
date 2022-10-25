@@ -11,8 +11,6 @@ const postsRoute = require('./routes/posts')
 app.use(bodyParser.json());
 app.use(cors());
 
-
-
 //connectting to db
 mongoose.Promise = global.Promise;
 mongoose.connect(connectionString, {
@@ -38,12 +36,7 @@ db.once("open", function () {
 //importing routes
 
 app.use('/posts', postsRoute)
-
-
 app.get('/', postsRoute)
-
-
-
 
 
 app.listen(2000)
